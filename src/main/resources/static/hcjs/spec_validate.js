@@ -1,5 +1,6 @@
+
 $(document).ready(function () {
-   //alert("ouhdiurhiu");
+  
     // 1. hide error section 
         $("#specCodeError").hide();
         $("#specNameError").hide();
@@ -18,7 +19,8 @@ $(document).ready(function () {
             var val = $("#specCode").val();
             var exp = /^[A-Z]{4,10}$/;
 
-            if(val==''){
+            if(val==''){ 
+            
                 $("#specCodeError").show();
                 $("#specCodeError").html("**Please Enter <b>code</b>");
                 $("#specCodeError").css("color","red");
@@ -26,6 +28,7 @@ $(document).ready(function () {
                 specCodeError = false;  
 
             }else if(!exp.test(val)){
+            	
                 $("#specCodeError").show();
                 $("#specCodeError").html("**<b>code</b> must be 4-10 chars");
                 $("#specCodeError").css("color","red");
@@ -33,8 +36,34 @@ $(document).ready(function () {
                 specCodeError = false;
 
             } else{
-                $("#specCodeError").hide();
-                specCodeError = true; // code field is not empty -> true
+            
+        		var id=0;  // for register 
+            	if($("#id").val()!=undefined){
+            		
+            		specCodeError = true;
+            		id = $("#id").val();
+            		
+            	}
+             $.ajax({
+                	url : 'checkcode',
+                	data : {"specCode" : val, "id" : id},
+                	success : function(respText){
+                		
+                		if(respText!=''){
+                			
+                            $("#specCodeError").show();
+                            $("#specCodeError").html(respText);
+                            $("#specCodeError").css("color", "red");
+                            
+                            specCodeError=false;
+                            
+                		}else{
+                			
+                            $("#specCodeError").hide();
+                            specCodeError=true;
+                		}
+                	}
+                });
             }
 
             return specCodeError;
