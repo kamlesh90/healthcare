@@ -26,4 +26,25 @@ public interface CollectionUtil {
 		
 		return map;
 	}
+	
+	public static Map<Long,String> convertToMapIndex(List<Object[]> list){
+/*
+		HashMap<Long, String> map = new HashMap<>();
+		for(Object [] obArr : list) {
+			map.put(
+					Long.valueOf(obArr[0].toString()), 
+					obArr[1].toString()+" "+obArr[2].toString()
+					);
+			
+ 		}
+*/
+		Map<Long,String> map = list
+								.stream()
+								.collect(Collectors.toMap(
+										obAr -> Long.valueOf(obAr[0].toString()),  
+										obAr -> obAr[1].toString()+" "+ obAr[2].toString())
+											);
+		
+		return map;
+	}
 }

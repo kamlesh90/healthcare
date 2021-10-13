@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import in.nit.hc.appointment.constants.UserRoles;
 import in.nit.hc.doctor.entity.Doctor;
 import in.nit.hc.doctor.service.IDoctorService;
 import in.nit.hc.specialization.service.ISpecializationService;
+import in.nit.hc.user.entity.User;
+import in.nit.hc.user.service.IUserService;
 import in.nit.hc.util.EmailUtil;
+import in.nit.hc.util.PwdGeneratorUtil;
 
 @Controller
 @RequestMapping("/doctor")
@@ -26,6 +30,9 @@ public class DoctorController {
 	
 	@Autowired
 	private ISpecializationService specService;
+	
+	@Autowired
+	private IUserService userService;
 	
 	@Autowired
 	private EmailUtil emailUtil;
@@ -52,12 +59,27 @@ public class DoctorController {
 		model.addAttribute("message", message);
 		
 		if(id!=null) {
+			User user = new User();
+			user.setDisplayName(doctor.getFirstName());
+			user.setUserName(doctor.getEmail());
+			user.setPassword(PwdGeneratorUtil.genratePassword()); 
+			user.setRole(UserRoles.DOCTOR.toString());
+			
+			userService.saveUser(user);
+		}	
+		
+		if(id!=null) {
 			new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
 					
-					emailUtil.send(doctor.getEmail(), "SUCCESS", message, null);
+					emailUtil.send(														//errro
+							doctor.getEmail(),  
+							"SUCCESS", 
+							message, 
+							new ClassPathResource("/static/hcjs/Welcome.pdf")
+							);
 				}
 			}).start();
 		}

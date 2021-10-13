@@ -103,7 +103,7 @@ public class SpecializationController {
 	}
 	
 	/****
-	 * 	6. to edit respective record click on edit button so
+	 * 	6. to edit respective record click on edit button 
 	 * 	   so it will load data to edit page if it is there in 
 	 * 	   DB if not then show Error message (Not found)   
 	 */

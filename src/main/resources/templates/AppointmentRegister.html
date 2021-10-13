@@ -1,0 +1,101 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+  
+  	<div th:replace="fragment/commonui :: header"></div>
+    <body>
+    <div th:replace="fragment/commonui :: menu"></div>
+        <!--container start-->
+            <div class="container">
+                <!--card start -->
+                    <div class="card">
+                        <!--card header start-->
+                            <div class="card-header bg-info text-center text-white text-italic">
+                                <h3 class="font-italic font-weight-bolder">APPOINTMENT REGISTER</h3>
+                            </div>
+                        <!--card header end-->
+
+                        <!--card body start-->
+                            <div class="card-body">
+                                <form action="" method="POST">
+                                  
+                                <!-- dynamic UI -->
+                                  
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label for="doctor">Doctor</label>
+                                        </div>
+                                        <div class="col-6">
+ 											<select name="doctor.id" id="doctor" class="form-control"> 
+ 											   <option value="">--SELECT--</option>
+ 											   <option th:each="ob:${doctorMap}" th:value="${ob.key}" th:text="${ob.value}"></option>
+ 											</select>
+                                        </div>
+                                        <div class="col-4">
+                                           <span id="doctorError"></span>
+                                        </div>
+                                    </div>
+
+								<!-- dynamic UI -->
+
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label for="">Date</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="date" name="appointmentDt" id="appointmentDt" class="form-control"/>
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label for="noOfSlots">SLOTS</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" name="noOfSlots" id="noOfSlots" class="form-control"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <span id="noOfSlotsError"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label for="details">DETAILS</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <textarea name="details" id="details" class="form-control"></textarea>
+                                        </div>
+                                        <div class="col-4">
+                                            <span id="detailsError"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label for="">FEES</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" name="fees" id="fees" class="form-control"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <span id="feesError"></span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Create <i class="fa fa-plus-square" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+                        <!--card body end-->
+
+                        <!--card footer start-->
+                            <div class="card-footer bg-info text-center text-white">
+                                <span>[[message]]</span>
+                            </div>
+                        <!--card footer end-->
+                    </div>
+                <!--card end -->
+            </div>
+        <!--container end-->
+    </body>
+</html>
