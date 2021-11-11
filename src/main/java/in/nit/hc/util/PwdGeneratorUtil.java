@@ -12,7 +12,7 @@ public class PwdGeneratorUtil {
 						.randomUUID()
 						.toString()
 						.replace('-', '!')
-						.substring(0, 15);
+						.substring(0, 8);
 		
 		return pwd;
 	}

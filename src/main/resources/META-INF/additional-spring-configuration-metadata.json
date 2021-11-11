@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "master.user.name",
+    "type": "java.lang.String",
+    "description": "A description for 'master.user.name'"
+  },
+  {
+    "name": "master.user.email",
+    "type": "java.lang.String",
+    "description": "A description for 'master.user.email'"
+  }
+]}

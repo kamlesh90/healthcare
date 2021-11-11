@@ -12,13 +12,29 @@
                     <div class="card">
                         <!--card header start-->
                             <div class="card-header bg-info text-center text-white text-italic">
-                                <h3 class="font-italic font-weight-bolder">APPOINTMENT REGISTER</h3>
+                                <h3 class="font-italic font-weight-bolder">APPOINTMENT EDIT</h3>
                             </div>
                         <!--card header end-->
 
                         <!--card body start-->
                             <div class="card-body">
-                                <form th:action="@{/appoint/save}" method="POST">
+                                <form th:action="@{/appoint/update}" method="POST" th:object="${appointment}">
+			
+							  <!-- Appointment ID  -->
+			
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label for="id">ID</label>
+                                        </div>
+                                       
+                                        <div class="col-6">
+ 											<input type="text" th:field="*{id}" name="id" class="form-control" readonly/> 
+ 										</div>
+                                        <div class="col-4">
+                                           <span id="idError"></span>
+                                        </div>
+                                    </div>
+							  <!-- Appointment ID End -->
                                   
                                 <!-- dynamic UI -->
                                   
@@ -26,8 +42,9 @@
                                         <div class="col-2">
                                             <label for="doctor">Doctor</label>
                                         </div>
+                                       
                                         <div class="col-6">
- 											<select name="doctor.id" id="doctor" class="form-control"> 
+ 											<select th:field="*{doctor}" name="doctor.id" class="form-control"> 
  											   <option value="">--SELECT--</option>
  											   <option th:each="ob:${doctorMap}" th:value="${ob.key}" th:text="${ob.value}"></option>
  											</select>
@@ -44,7 +61,7 @@
                                             <label for="">Date</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="date" name="appointmentDt" id="appointmentDt" class="form-control"/>
+                                            <input type="date" th:field="*{appointmentDt}" name="appointmentDt" class="form-control"/>
                                         </div>
                                         <div class="col-4">
 
@@ -56,7 +73,7 @@
                                             <label for="noOfSlots">SLOTS</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="text" name="noOfSlots" id="noOfSlots" class="form-control"/>
+                                            <input type="text" th:field="*{noOfSlots}" name="noOfSlots" class="form-control"/>
                                         </div>
                                         <div class="col-4">
                                             <span id="noOfSlotsError"></span>
@@ -68,7 +85,7 @@
                                             <label for="details">DETAILS</label>
                                         </div>
                                         <div class="col-6">
-                                            <textarea name="details" id="details" class="form-control"></textarea>
+                                            <textarea th:field="*{details}" name="details" class="form-control"></textarea>
                                         </div>
                                         <div class="col-4">
                                             <span id="detailsError"></span>
@@ -80,20 +97,20 @@
                                             <label for="">FEES</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="text" name="fees" id="fees" class="form-control"/>
+                                            <input type="text" th:field="*{fees}" name="fees" class="form-control"/>
                                         </div>
                                         <div class="col-4">
                                             <span id="feesError"></span>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-success">Create <i class="fa fa-plus-square" aria-hidden="true"></i></button>
+                                    <button type="submit" class="btn btn-success">Update <i class="fa fa-wrench" aria-hidden="true"></i></button>
                                 </form>
                             </div>
                         <!--card body end-->
 
                         <!--card footer start-->
                             <div class="card-footer bg-info text-center text-white">
-                                <span>[[${message}]]</span>
+                                <span th:text="${message}"></span>
                             </div>
                         <!--card footer end-->
                     </div>

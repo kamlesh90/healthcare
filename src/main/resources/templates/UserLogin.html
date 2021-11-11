@@ -1,0 +1,50 @@
+<html xmlns:th="https://www.thymeleaf.org/"> 
+
+<div th:replace="fragment/commonui :: header"></div>
+
+<body>
+
+	<div th:replace="fragment/common_user_ui :: menu"></div>
+    
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center text-black">
+                <h3>User Login</h3>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/login}" method="POST">
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="username">UserName</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" name="username" id="username" class="form-control"/>
+                        </div>
+                        <div class="col-6">
+                            <span id="usernameError"></span>
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="password" name="password" id="password" class="form-control"/>
+                        </div>
+                        <div class="col-6">
+                            <span id="passwordError"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info">Sign in</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                <span th:if="${param.error}" class="text-danger">Invalid Userdetails</span>
+                <span th:if="${param.logout}"class="text-success">Logout success</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

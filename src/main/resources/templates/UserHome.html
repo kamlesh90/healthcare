@@ -1,0 +1,21 @@
+<html xmlns:th="https://www.thymeleaf.org/"> 
+
+<div th:replace="fragment/commonui :: header"></div>
+
+<body>
+   
+   <div th:replace="fragment/commonui :: menu"></div>
+   
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center text-black bg-info">
+                <h3>WELCOME TO HOSPITAL APPLICATION</h3>
+            </div>
+            
+                <img th:src="@{/images/healthcare.jpg}"/>
+            
+        </div>
+
+    </div>
+</body>
+</html>

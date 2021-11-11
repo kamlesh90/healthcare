@@ -15,7 +15,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
-import in.nit.hc.specialization.entity.Specialization;
+import in.nit.hc.entity.Specialization;
+import in.nit.hc.repository.SpecializationRepository;
 
 @DataJpaTest(showSql = true)
 @AutoConfigureTestDatabase(replace = Replace.NONE)

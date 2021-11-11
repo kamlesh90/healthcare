@@ -1,19 +1,7 @@
 package in.nit.hc.util;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Enumeration;
-
-import javax.activation.DataHandler;
-import javax.mail.BodyPart;
-import javax.mail.Header;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -28,26 +16,20 @@ public class EmailUtil {
 	private JavaMailSender mailSender;
 	
 	public boolean send(
-						String [] to, 
-						String [] cc, 
-						String [] bcc, 
+						String to[], 
+						String cc[], 
+						String bcc[], 
 						String subject, 
 						String text, 
-						Resource [] files
-						) {
+						Resource files[]
+						) 
+	{
 		
 		boolean sent = false;
 		
 		try {
 			//1. create empty MimeMessage
 			MimeMessage message = mailSender.createMimeMessage();
-			
-			MimeMultipart content = new MimeMultipart("alternative");
-			javax.mail.internet.MimeBodyPart pdf = new javax.mail.internet.MimeBodyPart();
-			pdf.setText("TEXT SET BY ME");
-			content.addBodyPart(pdf); 
-			
-			message.setContent(content,"alternative"); 
 			
 			//2. fill the details
 			MimeMessageHelper helper = new MimeMessageHelper(message, files!=null && files.length>0);
@@ -57,7 +39,11 @@ public class EmailUtil {
 			if(cc!=null)
 				helper.setCc(cc); 
 			if(bcc!=null)
-				helper.setBcc(bcc); 
+				helper.setBcc(bcc);
+			
+			helper.setSubject(subject);
+			helper.setText(text); 
+			
 			if(files!=null) {
 				for(Resource rob : files) {
 					helper.addAttachment(rob.getFilename(), rob); 
@@ -82,7 +68,8 @@ public class EmailUtil {
 					String to, 
 					String subject, 
 					String text, 
-					Resource file) {
+					Resource file) 
+	{
 		
 		return send(
 					new String[] {to}, 
@@ -96,7 +83,8 @@ public class EmailUtil {
    public boolean send(
 		   			String to, 
 		   			String subject, 
-		   			String text) {
+		   			String text) 
+   {
 	   
 	   return send(to, subject, text, null); 
    }
