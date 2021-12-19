@@ -1,7 +1,10 @@
 package in.nit.hc.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.nit.hc.entity.Appointment;
 import in.nit.hc.entity.Doctor;
-import in.nit.hc.entity.Specialization;
 import in.nit.hc.service.IAppointmentService;
 import in.nit.hc.service.IDoctorService;
 import in.nit.hc.service.ISpecializationService;
@@ -102,24 +104,54 @@ public class AppointmentController {
 		return "redirect:all";
 	}
 	
+	@GetMapping("/doc-appoint")
+	public String getAppointmentByDocEmail(Principal p,Model model) {
+		
+		List<Object[]> appointList = appointService.getAppointmentsByDocEmail(p.getName());
+		model.addAttribute("appointList", appointList);
+		
+		return "DoctorAppointmentPage";
+	}
+	
+	//.. view appointments page..
 	@GetMapping("/view")
-	public String viewAppointment(Model model) {
+	public String viewSlots(
+			@RequestParam(required = false, defaultValue = "0") Long specId,
+			Model model
+			) 
+	{
+		// fetch data for Spec DropDown
 		Map<Long,String> specMap = specService.getSpecIdAndName();
 		model.addAttribute("specMap", specMap);
-		List<Doctor> docList = doctorService.getAllDoctors();
+		
+		List<Doctor> docList=null;
+		String message=null;
+		if(specId<=0) {
+			docList = doctorService.getAllDoctors();
+			message="Result : ALL Doctors";
+		}else {
+			docList = doctorService.getDoctorBySpecName(specId);
+			message = "Result : "+specService.getOneSpecialization(specId).getSpecName()+" Doctors";
+		}
 		model.addAttribute("docList", docList); 
+		
+		model.addAttribute("message", message);
 		
 		return "AppointmentSearch";
 	}
 	
-	@GetMapping("/search")
-	public String searchAppointment(@RequestParam(value = "specId", required = false, defaultValue = "0") Long sId, Model model) {
-		List<Doctor> docList = doctorService.getDoctorBySpecName(sId);
-		model.addAttribute("docList", docList);
+	//......view slots
+	@GetMapping("/viewSlot")
+	public String showSlots(@RequestParam Long id, Model model) {
+		//fetch appointments based on doctor id
+		List<Object[]> list = appointService.getAppoinmentsByDoctor(id);
+		model.addAttribute("list",list);
 		
-		return "AppointmentSearch";
+		Doctor doctor = doctorService.getOneDoctor(id);
+		model.addAttribute("message", "RESULTS SHOWING FOR : "+doctor.getFirstName()+" "+doctor.getLastName());
+		
+		return "AppointmentSlots";
 	}
-
 }
 
 

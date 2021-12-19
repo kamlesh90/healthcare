@@ -12,7 +12,7 @@
                  <b><h3>APPOINTMENT SEARCH</h3></b>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/appoint/search}">
+                    <form th:action="@{/appoint/view}">
                         <div class="row">
                             <div class="col-2">
                                 <label for="specId">Specialization</label>
@@ -48,7 +48,7 @@
                             <td th:text="${ob.mobile}"></td>
                             <td th:text="${ob.note}"></td>
                             <td>
-                                <a href="" class="btn btn-secondary">VIEW SLOTS</a> 
+                                <a th:href="@{/appoint/viewSlot(id=${ob.id})}" class="btn btn-secondary">VIEW SLOTS</a>                                
                             </td>
                         </tr>
                    </table>

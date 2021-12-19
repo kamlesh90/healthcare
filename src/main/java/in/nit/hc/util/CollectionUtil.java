@@ -20,7 +20,7 @@ public interface CollectionUtil {
 		Map<Long,String> map = list
 								.stream()
 								.collect(Collectors.toMap(
-										obArr -> Long.valueOf(obArr[0].toString()), //toMap(Function<>,Function<>) toMap() takes Function interface as input 2 times and return map  
+										obArr -> Long.valueOf(obArr[0].toString()), //toMap(Functional<>,Functional<>) toMap() takes Functional interface as input 2 times and return map  
 										obArr -> obArr[1].toString())
 										);
 		

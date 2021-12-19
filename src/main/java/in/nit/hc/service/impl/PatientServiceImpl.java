@@ -104,5 +104,11 @@ public class PatientServiceImpl implements IPatientService{
 		patientRepository.delete(getOnePatient(id)); 
 	}
 
+	@Override
+	public Patient getPatientByEmail(String email) {
+		
+		return patientRepository.findByEmail(email).get();
+	}
+
 
 }

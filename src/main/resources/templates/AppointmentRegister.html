@@ -44,7 +44,8 @@
                                             <label for="">Date</label>
                                         </div>
                                         <div class="col-6">
-                                            <input type="date" name="appointmentDt" id="appointmentDt" class="form-control"/>
+                                            <!-- <input type="date" name="appointmentDt" id="appointmentDt" class="form-control"/> -->  <!-- OLD -->
+                                            <input type="text" name="appointmentDt" id="appointmentDt" class="form-control datepicker" autocomplete="off" readonly /> <!-- NEW -->
                                         </div>
                                         <div class="col-4">
 
@@ -100,5 +101,10 @@
                 <!--card end -->
             </div>
         <!--container end-->
+        <script>
+        	$('.datepicker').datepicker({
+        		startDate : new Date()
+        	})
+        </script>
     </body>
 </html>

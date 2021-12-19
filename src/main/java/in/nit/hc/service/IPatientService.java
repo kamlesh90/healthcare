@@ -15,4 +15,6 @@ public interface IPatientService {
 	public void updatePatient(Patient patient);
 	
 	public void deletePatient(Long id);
+	
+	Patient getPatientByEmail(String email); 
 }

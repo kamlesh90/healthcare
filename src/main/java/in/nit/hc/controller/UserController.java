@@ -1,6 +1,7 @@
 package in.nit.hc.controller;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,13 +15,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import in.nit.hc.entity.User;
 import in.nit.hc.service.IUserService;
+import in.nit.hc.util.EmailUtil;
+import in.nit.hc.util.PwdGeneratorUtil;
 
 @Controller
-@RequestMapping("/user")              
+@RequestMapping("/user")           // /user/showGenPwd   
 public class UserController {
 
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private EmailUtil mailUtil;
 	
 	@GetMapping("/login")
 	public String showLogin() {
@@ -63,6 +69,36 @@ public class UserController {
 	public String getUserProfile() {
 		
 		return "UserProfile";
+	}
+	
+	@GetMapping("/showGenPwd")
+	public String showForgotPwd() {
+		
+		return "NewPasswordGenerator";
+	}
+	
+	@PostMapping("/genPwd")
+	public String forgetPwd(@RequestParam(value = "userName",required = true) String email,Model model) {
+		Optional<User> opt = userService.findByUsername(email);
+		if(opt.isPresent()) {
+			User user = opt.get();
+			String pwd = PwdGeneratorUtil.genratePassword();
+			userService.updatePassword(pwd, user.getId());
+			model.addAttribute("message", "new password generated !!");
+			
+			if(user.getId()!=null) {
+				new Thread(
+						() -> {
+							String text = "New Password "+pwd;
+							mailUtil.send(user.getUserName(), "New password", text);
+						}
+						).start();
+			}
+		} else {
+			model.addAttribute("message", "User Not Present !!");
+		}
+		
+		return "NewPasswordGenerator";
 	}
 }
 

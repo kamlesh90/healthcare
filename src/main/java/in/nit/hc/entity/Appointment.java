@@ -36,7 +36,7 @@ public class Appointment {
 	@JoinColumn(name = "doc_appoint_id_fk_col")
 	private Doctor doctor;
 	
-	@DateTimeFormat(iso = ISO.DATE)  // @DataTimeFormate -> convert the String format date which we enter in UI that is Sting format to util.Date format > 
+	@DateTimeFormat(pattern = "MM/dd/yyyy")  // @DataTimeFormate -> convert the String format date which we enter in UI that is Sting format to util.Date format > 
 										 // < iso is an enum used for save date only there is more option like DateTiem etc... 
 	@Temporal(TemporalType.DATE)     // @Temporal -> again it is used for util.Date to database format > TemporalType.Date < again for date  
 	@Column(name = "appoint_dt_col")

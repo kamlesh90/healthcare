@@ -1,11 +1,10 @@
 package in.nit.hc.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+import org.springframework.transaction.annotation.Transactional;
 
 import in.nit.hc.entity.Appointment;
 import in.nit.hc.exception.AppointmentNotFoundException;
@@ -64,6 +63,23 @@ public class AppointmentServiceImpl implements IAppointmentService{
 		return appointRepository.findById(id).orElseThrow(
 															() -> new AppointmentNotFoundException("Appointment "+id+" not available!!")  
 														 );
+	}
+
+	
+	public List<Object[]> getAppoinmentsByDoctor(Long docId) {
+		
+		return appointRepository.getAppoinmentsByDoctor(docId); 
+	}
+
+	@Transactional
+	public void updateSlotCountForAppointment(Long appId, int count) {
+		appointRepository.updateSlotCountForAppointment(appId, count); 
+	}
+
+	@Override
+	public List<Object[]> getAppointmentsByDocEmail(String email) {
+	
+		return appointRepository.getAppoinmentsByDoctorEmail(email);
 	}
 	
 }
