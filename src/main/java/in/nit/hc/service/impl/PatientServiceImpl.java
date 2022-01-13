@@ -110,5 +110,11 @@ public class PatientServiceImpl implements IPatientService{
 		return patientRepository.findByEmail(email).get();
 	}
 
+	@Override
+	public long getPatientCount() {
+
+		return patientRepository.count();
+	}
+
 
 }

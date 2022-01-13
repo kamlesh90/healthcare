@@ -14,6 +14,7 @@ public interface ISlotRequestService {
 	List<SlotRequest> getAllSlotRequests();
 	
 	SlotRequest getOneSlotRequest(Long id);
+	
 	// admin/patient can update status
 	void updateSlotRequestStatus(Long id, String status);
 	

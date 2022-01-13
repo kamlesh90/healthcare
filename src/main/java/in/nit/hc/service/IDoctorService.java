@@ -20,4 +20,6 @@ public interface IDoctorService {
 	public Map<Long, String> getIdAndName(); 
 	
 	List<Doctor> getDoctorBySpecName(Long specId);
+	
+	long getDocCount();
 }

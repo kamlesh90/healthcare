@@ -14,4 +14,5 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long>{
 	
 	@Query("SELECT d FROM Doctor d INNER JOIN d.specialization as s WHERE s.id=:specId")
 	public List<Doctor> getDoctorBySpecName(Long specId);
+
 }

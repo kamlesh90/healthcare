@@ -17,4 +17,6 @@ public interface IPatientService {
 	public void deletePatient(Long id);
 	
 	Patient getPatientByEmail(String email); 
+	
+	long getPatientCount();
 }

@@ -1,6 +1,4 @@
 package in.nit.hc.service.impl;
-
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,6 +16,8 @@ import in.nit.hc.service.IUserService;
 import in.nit.hc.util.CollectionUtil;
 import in.nit.hc.util.EmailUtil;
 import in.nit.hc.util.PwdGeneratorUtil;
+
+import java.util.List;
 
 @Service
 public class DoctorServiceImpl implements IDoctorService{
@@ -124,6 +124,11 @@ public class DoctorServiceImpl implements IDoctorService{
 		}
 		
 		return docList;
+	}
+
+	public long getDocCount() {
+
+		return doctorRepo.count();
 	}
 
 }	

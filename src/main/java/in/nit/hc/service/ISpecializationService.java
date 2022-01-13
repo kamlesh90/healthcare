@@ -24,4 +24,6 @@ public interface ISpecializationService {
 															// and id for internal code mapping 
 	
 	 Page<Specialization> getAllSpecializations(Pageable pageable);
+	 
+	 long specCount();
 }

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,11 @@ import in.nit.hc.entity.Patient;
 import in.nit.hc.entity.SlotRequest;
 import in.nit.hc.entity.User;
 import in.nit.hc.service.IAppointmentService;
+import in.nit.hc.service.IDoctorService;
 import in.nit.hc.service.IPatientService;
 import in.nit.hc.service.ISlotRequestService;
+import in.nit.hc.service.ISpecializationService;
+import in.nit.hc.util.AdminDashboardUtil;
 import in.nit.hc.view.InvoicePdfView;
 
 @Controller
@@ -33,10 +37,22 @@ public class SlotRequestController {
 	private ISlotRequestService slotReqService;
 	
 	@Autowired
+	private ISpecializationService specService;
+	
+	@Autowired
+	private IDoctorService docService;
+	
+	@Autowired
 	private IAppointmentService appointService;
 	
 	@Autowired
 	private IPatientService patientService;
+	
+	@Autowired
+	private ServletContext context;
+	
+	@Autowired
+	private AdminDashboardUtil util;
 	
 	@GetMapping("/book")
 	public String bookSlotReq(@RequestParam Long appntId, Model model, HttpSession session) {
@@ -49,7 +65,6 @@ public class SlotRequestController {
 		Patient patient = patientService.getPatientByEmail(email);
 		
 		// create SLOT Req
-		
 		SlotRequest sr = new SlotRequest();
 		sr.setAppointment(appointment);
 		sr.setPatient(patient);
@@ -135,6 +150,23 @@ public class SlotRequestController {
 		model.addAttribute("list", list);
 		 
 		return "DoctorSlotReqData";
+	}
+	
+	@GetMapping("/dashboard")
+	public String adminDashboard(Model model) {
+		model.addAttribute("doctors", docService.getDocCount());
+		model.addAttribute("specs", specService.specCount());
+		model.addAttribute("patients", patientService.getPatientCount());
+		model.addAttribute("appointments", appointService.getAppointmentCount());
+		
+		String path = context.getRealPath("/");  // root folder
+		
+		List<Object[]> list = slotReqService.getStatusAndStatusCount();
+		
+		util.generatePie(path, list);
+		util.generateBar(path, list);
+		 
+		return "AdminDashboard";
 	}
 	
 	@GetMapping("/pdf")

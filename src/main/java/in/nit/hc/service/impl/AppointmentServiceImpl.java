@@ -81,6 +81,12 @@ public class AppointmentServiceImpl implements IAppointmentService{
 	
 		return appointRepository.getAppoinmentsByDoctorEmail(email);
 	}
+
+	@Override
+	public long getAppointmentCount() {
+		
+		return appointRepository.count();
+	}
 	
 }
 

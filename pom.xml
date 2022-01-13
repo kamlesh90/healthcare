@@ -37,18 +37,14 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
- 		<dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
-<!-- 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
- -->		
+
+		<!-- <dependency> <groupId>org.postgresql</groupId> <artifactId>postgresql</artifactId> 
+			<scope>runtime</scope> </dependency> -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -61,14 +57,14 @@
 			<version>3.17</version>
 		</dependency>
 
-		<!-- for excel report generation for EXCEL-->
+		<!-- for excel report generation for EXCEL -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.17</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.lowagie/itext for PDF-->
+		<!-- https://mvnrepository.com/artifact/com.lowagie/itext for PDF -->
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
@@ -101,6 +97,14 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- security -->
+
+		<!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+
 
 	</dependencies>
 

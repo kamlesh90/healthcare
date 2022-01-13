@@ -106,6 +106,11 @@ public class SpecializationServiceImpl implements ISpecializationService{
 		
 		return specRepo.findAll(pageable);
 	}
+
+	@Override
+	public long specCount() {
+		return specRepo.count();
+	}
  
 }
 	
